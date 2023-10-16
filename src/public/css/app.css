@@ -1,2 +1,10 @@
 h1 {
   color: red; }
+
+.container-fluid {
+  width: 90%;
+  margin: auto; }
+
+.container {
+  width: 90%;
+  margin: auto; }
