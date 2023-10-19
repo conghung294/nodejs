@@ -19,7 +19,7 @@ class CourseController {
      
       const course = new Course(req.body)
       course.save()
-        .then(()=>res.redirect('/'))
+        .then(()=>res.redirect('/me/stored/courses'))
         .catch(next)
     }
     edit(req,res,next){
@@ -37,11 +37,37 @@ class CourseController {
       .then(()=>res.redirect('/me/stored/courses'))
         .catch(next)
     }
+
     delete(req,res,next){
+      Course.delete({_id:req.params.id})
+      .then(() => res.redirect('back'))
+      .catch(next)
+    }
+
+    forceDelete(req,res,next){
       Course.deleteOne({_id:req.params.id})
       .then(() => res.redirect('back'))
       .catch(next)
     }
+
+    restore(req,res,next){
+      Course.restore({_id:req.params.id})
+      .then(() => res.redirect('back'))
+      .catch(next)
+    }
+    handleFormActions(req,res,next){
+      switch(req.body.action){
+        case 'delete':
+          Course.delete({_id:{$in:req.body.courseIds}})
+      .then(() => res.redirect('back'))
+      .catch(next)
+        break;
+        default:
+        res.json({message:'action is error'})
+      }
+      
+    }
+    
 }
 
 module.exports = new CourseController();
