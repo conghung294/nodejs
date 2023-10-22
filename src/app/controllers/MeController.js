@@ -4,7 +4,13 @@ class MeController {
     
    
     storedCourses(req,res,next){
-      Promise.all([Course.find({}),Course.findDeleted({})])
+      let coursequery = Course.find({})
+      if(req.query.hasOwnProperty('_sort')){
+        coursequery = coursequery.sort({
+          [req.query.column]:req.query.type
+        })
+      }
+      Promise.all([coursequery,Course.findDeleted({})])
       .then(([courses,coursesDeleted])=>{
         res.render('me/stored_Courses',{
              countDeleted: coursesDeleted.filter(coursesDeleted => coursesDeleted.deleted).length ,

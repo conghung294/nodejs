@@ -24,8 +24,13 @@
     <thead>
       <tr>
         <th scope="col" colspan="2">#</th>
-        <th scope="col">Name</th>
-        <th scope="col" colspan="2">Thời gian tạo</th>
+        <th scope="col">Tên khóa học
+          {{{sortable 'name' _sort}}}
+          </a>
+        </th>
+        <th scope="col" colspan="2">Thời gian tạo
+          {{{sortable 'createdAt' _sort}}}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -129,3 +134,4 @@
      
   });
 </script>
+
